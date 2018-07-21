@@ -1,0 +1,13 @@
+<%= link_to "Projects", projects_path %> \
+<h1>New Project</h1>
+
+<%= form_for project do |f| %>
+  <div>
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+
+  <div>
+    <%= f.submit %>
+  </div>
+<% end %>

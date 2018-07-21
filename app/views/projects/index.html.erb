@@ -1,0 +1,14 @@
+<h1>Projects</h1>
+
+<%= link_to "New Project", new_project_path %>
+
+<table>
+  <tbody>
+    <% @projects.each do |project| %>
+      <tr>
+        <td><%= project.name %></td>
+        <td><%= link_to "edit", edit_project_path(project) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
