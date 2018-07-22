@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 2018_07_21_033701) do
     t.bigint "project_id"
     t.datetime "start_at", null: false
     t.datetime "end_at"
-    t.decimal "elapsed_seconds", precision: 10, scale: 2
+    t.integer "elapsed_seconds"
     t.text "description"
     t.boolean "active", default: false, null: false
     t.datetime "created_at", null: false
