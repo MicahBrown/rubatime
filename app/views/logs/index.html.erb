@@ -1,0 +1,14 @@
+<%= link_to "Start New Log", logs_path, method: :post %>
+
+<table>
+  <tbody>
+    <% @logs.each do |log| %>
+      <tr>
+        <td><%= log.start_at %></td>
+        <td><%= log.end_at %></td>
+        <td><%= log.project&.name %></td>
+        <td><%= link_to "Edit Log", edit_log_path(log) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
