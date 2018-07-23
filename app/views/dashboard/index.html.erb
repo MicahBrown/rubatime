@@ -1,12 +1,12 @@
+<h1 class="title">Dashboard</h1>
 
-<h1>Dashboard</h1>
-
-<%= link_to "Start New Log", logs_path, method: :post %>
+<p>
+  <%= link_to "Start New Log", logs_path, method: :post %>
+</p>
 
 <div>
   <p style="display: inline-block; padding: 0.25rem;" class="inactive">Inactive</p>
 </div>
-
 
 <table class="table">
   <thead>
@@ -15,7 +15,7 @@
       <th>End</th>
       <th>Hours</th>
       <th>Project</th>
-      <th colspan="2">Actions</th>
+      <th style="text-align: center;" colspan="2">Actions</th>
     </tr>
   </thead>
   <tbody>

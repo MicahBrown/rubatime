@@ -1,13 +1,21 @@
-<%= link_to "Projects", projects_path %> \
-<h1>New Project</h1>
+<nav class="breadcrumb" aria-label="breadcrumbs">
+  <ul>
+    <li><%= link_to "Projects", projects_path %></li>
+    <li class="is-active"><a href="#" aria-current="page"><%= params[:action].titleize %> Project</a></li>
+  </ul>
+</nav>
+
+<h1 class="title">New Project</h1>
 
 <%= form_for project do |f| %>
-  <div>
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+  <div class="field">
+    <%= f.label :name %>
+    <div class="control">
+      <%= f.text_field :name, class: "input" %>
+    </div>
   </div>
 
   <div>
-    <%= f.submit %>
+    <%= f.submit class: "button is-primary" %>
   </div>
 <% end %>

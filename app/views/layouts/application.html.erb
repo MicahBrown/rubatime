@@ -4,16 +4,25 @@
     <title>Rubatime</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <div>
-      <%= link_to "Dashboard", dashboard_path %>
-      <%= link_to "Projects", projects_path %>
-    </div>
-    <%= yield %>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <!-- <div class="navbar-brand"></div> -->
+      <div class="navbar-menu" style="display: block;">
+        <div class="navbar-item <%= 'is-active' if current_page?(controller: 'dashboard', action: 'index') %>"><%= link_to "Dashboard", dashboard_path %></div>
+        <div class="navbar-item <%= 'is-active' if current_page?(controller: 'projects', action: 'index') %>"><%= link_to "Projects", projects_path %></div>
+      </div>
+    </nav>
+
+    <section class="section">
+      <div class="container">
+        <%= yield %>
+      </div>
+    </section>
   </body>
 </html>
