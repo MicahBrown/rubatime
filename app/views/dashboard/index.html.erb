@@ -1,7 +1,7 @@
-<h1 class="title">Dashboard</h1>
+<h1 class="title"><%= icon("tachometer") %> Dashboard</h1>
 
 <p>
-  <%= link_to "Start New Log", logs_path, method: :post %>
+  <%= link_to icon("plus-circle", "Start New Log"), logs_path, method: :post %>
 </p>
 
 <table class="table">
@@ -18,7 +18,7 @@
   <tbody>
     <% @logs.each do |log| %>
       <tr>
-        <td><%= content_tag :i, nil, class: "fas fa-#{log.active? ? 'check' : 'times'}" %></td>
+        <td><%= icon(log.active? ? 'check' : 'times') %></td>
         <td><%= formatted_time(log.start_at) %></td>
         <td>
           <% if log.end_at? %>
