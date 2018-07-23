@@ -26,6 +26,22 @@ class Log < ApplicationRecord
     (elapsed_seconds / 60.0 / 60).round(scale)
   end
 
+  def start_at=(value)
+    if value.is_a?(String) && value.match(/[a-z]{3}\s\d?\d,\s\d{4}/i)
+      value = ActiveSupport::TimeZone["Mountain Time (US & Canada)"].parse(value)
+    end
+
+    super(value)
+  end
+
+  def end_at=(value)
+    if value.is_a?(String) && value.match(/[a-z]{3}\s\d?\d,\s\d{4}/i)
+      value = ActiveSupport::TimeZone["Mountain Time (US & Canada)"].parse(value)
+    end
+
+    super(value)
+  end
+
   private
 
     def valid_time_range?
