@@ -1,6 +1,10 @@
+
+<h1>Dashboard</h1>
 <%= link_to "Start New Log", logs_path, method: :post %>
 
-<table>
+<p class="inactive">Inactive</p>
+
+<table class="table">
   <thead>
     <tr>
       <th>Start</th>
@@ -12,7 +16,7 @@
   </thead>
   <tbody>
     <% @logs.each do |log| %>
-      <tr style="<%= 'opacity: 0.6;' unless log.active? %>">
+      <tr class="<%= 'inactive' unless log.active? %>">
         <td><%= formatted_time(log.start_at) %></td>
         <td>
           <% if log.end_at? %>
