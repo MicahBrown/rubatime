@@ -28,6 +28,13 @@ class LogsController < ApplicationController
     end
   end
 
+  def destroy
+    @log = Log.find(params[:id])
+    @log.destroy!
+
+    redirect_to logs_path, notice: "Successfully deleted log"
+  end
+
   private
 
     def log_params
