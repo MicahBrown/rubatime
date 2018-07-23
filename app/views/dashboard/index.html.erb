@@ -1,13 +1,11 @@
 <h1 class="title"><%= icon("tachometer") %> Dashboard</h1>
 
-<p>
-  <%= link_to icon("plus-circle", "Start New Log"), logs_path, method: :post %>
-</p>
+<%= link_to icon("plus-circle", "Start New Log"), logs_path, method: :post, class: "button is-link" %>
 
 <table class="table">
   <thead>
     <tr>
-      <th>Active</th>
+      <th style="text-align: center">Active</th>
       <th>Start</th>
       <th>End</th>
       <th>Hours</th>
@@ -18,7 +16,7 @@
   <tbody>
     <% @logs.each do |log| %>
       <tr>
-        <td><%= icon(log.active? ? 'check' : 'times') %></td>
+        <td style="text-align: center;"><%= icon(log.active? ? 'check' : 'times', class: log.active? ? "has-text-success" : "has-text-danger") %></td>
         <td><%= formatted_time(log.start_at) %></td>
         <td>
           <% if log.end_at? %>

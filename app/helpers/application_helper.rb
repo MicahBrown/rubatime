@@ -9,7 +9,7 @@ module ApplicationHelper
     options.merge!(class: "fas fa-#{icon_name} #{options[:class]}")
 
     content = content_tag(:i, nil, options)
-    content = content + " " + text if text.present?
+    content = content + content_tag(:span, text, style: "margin-left: 0.25rem;") if text.present?
     content
   end
 end
