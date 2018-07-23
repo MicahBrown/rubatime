@@ -1,8 +1,4 @@
 class LogsController < ApplicationController
-  def index
-    @logs = Log.order("start_at DESC")
-  end
-
   def create
     @log = Log.new(start_at: Time.now)
 
@@ -10,7 +6,7 @@ class LogsController < ApplicationController
       redirect_to edit_log_path(@log), notice: "Successfully started new log"
     else
       flash[:alert] = "Unable to start new log"
-      redirect_back(fallback_location: logs_path)
+      redirect_back(fallback_location: dashboard_path)
     end
   end
 
@@ -32,7 +28,7 @@ class LogsController < ApplicationController
     @log = Log.find(params[:id])
     @log.destroy!
 
-    redirect_to logs_path, notice: "Successfully deleted log"
+    redirect_to dashboard_path, notice: "Successfully deleted log"
   end
 
   private

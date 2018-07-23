@@ -1,0 +1,37 @@
+<%= link_to "Start New Log", logs_path, method: :post %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Start</th>
+      <th>End</th>
+      <th>Hours</th>
+      <th>Project</th>
+      <th colspan="2">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @logs.each do |log| %>
+      <tr style="<%= 'opacity: 0.6;' unless log.active? %>">
+        <td><%= formatted_time(log.start_at) %></td>
+        <td>
+          <% if log.end_at? %>
+            <%= formatted_time(log.end_at) %>
+          <% else %>
+            <span>Not Set</span>
+          <% end %>
+        </td>
+        <td style="text-align: center">
+          <% if log.hours.present? %>
+            <%= number_with_precision(log.hours, strip_insignificant_zeros: true, precision: 2) %>
+          <% else %>
+            <span>N/A</span>
+          <% end %>
+        </td>
+        <td><%= log.project&.name || "Not Set" %></td>
+        <td><%= link_to "Edit", edit_log_path(log) %></td>
+        <td><%= link_to "Delete", log_path(log), method: :delete, data: {confirm: "Are you sure?"} %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
