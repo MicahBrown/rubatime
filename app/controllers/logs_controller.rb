@@ -18,7 +18,7 @@ class LogsController < ApplicationController
     @log = Log.find(params[:id])
 
     if update_log(@log)
-      redirect_to edit_log_path(@log), notice: "Successfully updated log"
+      redirect_to dashboard_path, notice: "Successfully updated log"
     else
       render :edit
     end
