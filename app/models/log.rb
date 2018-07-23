@@ -28,7 +28,7 @@ class Log < ApplicationRecord
 
   def start_at=(value)
     if value.is_a?(String) && value.match(/[a-z]{3}\s\d?\d,\s\d{4}/i)
-      value = ActiveSupport::TimeZone["Mountain Time (US & Canada)"].parse(value)
+      value = ActiveSupport::TimeZone[TIMEZONE].parse(value)
     end
 
     super(value)
@@ -36,7 +36,7 @@ class Log < ApplicationRecord
 
   def end_at=(value)
     if value.is_a?(String) && value.match(/[a-z]{3}\s\d?\d,\s\d{4}/i)
-      value = ActiveSupport::TimeZone["Mountain Time (US & Canada)"].parse(value)
+      value = ActiveSupport::TimeZone[TIMEZONE].parse(value)
     end
 
     super(value)
