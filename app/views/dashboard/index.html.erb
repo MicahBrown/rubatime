@@ -4,13 +4,10 @@
   <%= link_to "Start New Log", logs_path, method: :post %>
 </p>
 
-<div>
-  <p style="display: inline-block; padding: 0.25rem;" class="inactive">Inactive</p>
-</div>
-
 <table class="table">
   <thead>
     <tr>
+      <th>Active</th>
       <th>Start</th>
       <th>End</th>
       <th>Hours</th>
@@ -20,7 +17,8 @@
   </thead>
   <tbody>
     <% @logs.each do |log| %>
-      <tr class="<%= 'inactive' unless log.active? %>">
+      <tr>
+        <td><%= content_tag :i, nil, class: "fas fa-#{log.active? ? 'check' : 'times'}" %></td>
         <td><%= formatted_time(log.start_at) %></td>
         <td>
           <% if log.end_at? %>
