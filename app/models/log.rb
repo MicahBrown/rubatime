@@ -1,5 +1,11 @@
 class Log < ApplicationRecord
+  PAY_PERIOD_START_DATE = Date.new(2018, 7, 15).freeze
+  PAY_PERIOD_DURATION = 2.weeks.freeze
+
   belongs_to :project, optional: true
+
+  scope :active, -> { where(active: true) }
+  scope :in_datetime_range, -> (sdatetime, edatetime) { where("(logs.start_at <= ?) AND (logs.end_at >= ?)", edatetime, sdatetime) }
 
   validates :start_at, presence: true
   validates :end_at, presence: {if: :active?}
@@ -40,6 +46,44 @@ class Log < ApplicationRecord
     end
 
     super(value)
+  end
+
+  def self.elapsed_seconds_for(start_at, end_at, only_include_active=true)
+    start_at = start_at.in_time_zone(TIMEZONE) if start_at.is_a?(Date)
+    end_at   = end_at.in_time_zone(TIMEZONE).end_of_day if end_at.is_a?(Date)
+
+    logs = self.in_datetime_range(start_at, end_at)
+    logs = logs.active if only_include_active
+
+    seconds = logs.map do |log|
+      s = log.start_at < start_at ? start_at : log.start_at
+      e = log.end_at > end_at ? end_at : log.end_at
+      e - s
+    end
+
+    seconds.inject(:+)
+  end
+
+  def self.current_pay_period_dates
+    today = Date.today
+    sdate = PAY_PERIOD_START_DATE.dup
+    edate = nil
+
+    loop do
+      next_sdate = sdate + PAY_PERIOD_DURATION
+      edate = next_sdate - 1.day
+      break if edate >= today
+
+      sdate = next_sdate
+    end
+
+    sdate..edate
+  end
+
+
+  def self.current_pay_period_elapsed_seconds
+    date_range = current_pay_period_dates
+    elapsed_seconds_for(date_range.min, date_range.max)
   end
 
   private

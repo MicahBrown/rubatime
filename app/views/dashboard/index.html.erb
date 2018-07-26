@@ -1,8 +1,16 @@
 <h1 class="title"><%= icon("tachometer") %> Dashboard</h1>
 
-<%= link_to icon("plus-circle", "Start New Log"), logs_path, method: :post, class: "button is-link" %>
+<div style="margin-bottom: 1.5rem">
+  <%= link_to icon("plus-circle", "Start New Log"), logs_path, method: :post, class: "button is-link" %>
+  <%= link_to icon("file-export", "Export Last Pay Period"), logs_path, method: :post, class: "button is-link" %>
+</div>
 
-<table class="table">
+<div class="box">
+  <span class="title"><%= pluralize(number_with_precision(Log.current_pay_period_elapsed_seconds / 60.0 / 60, strip_insignificant_zeros: true, precision: 2), "Hour") %> This Pay Period</span>
+  <small><%= Log.current_pay_period_dates.min.strftime("%b %e, %Y") %> - <%= Log.current_pay_period_dates.max.strftime("%b %e, %Y") %></small>
+</div>
+
+<table class="table" style="width: 100%;">
   <thead>
     <tr>
       <th style="text-align: center">Active</th>
