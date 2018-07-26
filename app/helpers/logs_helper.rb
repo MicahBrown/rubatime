@@ -15,7 +15,7 @@ module LogsHelper
         start_time = week_start if start_time < week_start
         end_time = log.end_at.in_time_zone(TIMEZONE)
         end_time = week_end if end_time > week_end
-        Rails.logger.info("\n\n--#{week_hours(start_time, end_time)}--\n\n")
+
         weeks[x][:hours] += week_hours(start_time, end_time)
       end
 
