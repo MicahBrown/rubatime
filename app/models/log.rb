@@ -64,6 +64,14 @@ class Log < ApplicationRecord
     seconds.inject(:+)
   end
 
+  def self.previous_pay_period_dates
+    current_period = current_pay_period_dates
+    prev_sdate = current_period.min - PAY_PERIOD_DURATION
+    prev_edate = current_period.min - 1.day
+
+    prev_sdate..prev_edate
+  end
+
   def self.current_pay_period_dates
     today = Date.today
     sdate = PAY_PERIOD_START_DATE.dup
