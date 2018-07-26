@@ -1,9 +1,57 @@
-<h1 class="title"><%= icon("tachometer") %> Dashboard</h1>
+<div class="columns">
+  <div class="column">
+    <h1 class="title"><%= icon("tachometer") %> Dashboard</h1>
+    <div style="margin-bottom: 1.5rem">
+      <%= link_to icon("plus-circle", "Start New Log"), logs_path, method: :post, class: "button is-link" %>
+      <%= link_to icon("file-export", "Export Last Pay Period"), exports_path(format: :csv), method: :post, class: "button is-link" %>
+    </div>
+  </div>
 
-<div style="margin-bottom: 1.5rem">
-  <%= link_to icon("plus-circle", "Start New Log"), logs_path, method: :post, class: "button is-link" %>
-  <%= link_to icon("file-export", "Export Last Pay Period"), logs_path, method: :post, class: "button is-link" %>
+  <div class="column">
+    <canvas id="chart" style="width: 100%; height: 120px;" data-values="<%= hours_by_weeks(5).to_json %>"></canvas>
+
+    <script type="text/javascript">
+      var ctx = document.getElementById("chart");
+      var data = JSON.parse(ctx.getAttribute("data-values"));
+      var values = [];
+      var labels = [];
+
+      Object.keys(data).forEach(function(key) {
+        var attrs = data[key];
+        values.push(attrs['hours'])
+        labels.push(attrs['label'])
+      })
+
+      var myChart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+              labels: labels,
+              datasets: [{
+                  label: '# of Hours',
+                  data: values,
+                  backgroundColor: 'rgba(50, 155, 220, 0.56)',
+                  borderColor: 'rgba(50,115,220,0.78)',
+                  borderWidth: 1
+              }]
+          },
+          options: {
+              legend: {
+                  display: true,
+                  position: 'bottom'
+              },
+              scales: {
+                  yAxes: [{
+                      ticks: {
+                          beginAtZero:true
+                      }
+                  }]
+              }
+          }
+      });
+    </script>
+  </div>
 </div>
+
 
 <div class="box">
   <span class="title"><%= pluralize(number_with_precision(Log.current_pay_period_elapsed_seconds / 60.0 / 60, strip_insignificant_zeros: true, precision: 2), "Hour") %> This Pay Period</span>

@@ -14,4 +14,5 @@
 //= require activestorage
 //= require turbolinks
 //= require moment
+//= require chart
 //= require_tree .
