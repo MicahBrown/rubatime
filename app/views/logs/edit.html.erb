@@ -11,22 +11,40 @@
   <div class="columns">
     <div class="column">
       <div class="field">
-        <%= f.label :start_at %>
+        <%= label_tag "log[start_at][date]", "Start Date" %>
         <div class="control">
-          <%= f.text_field :start_at, value: formatted_time(@log.start_at), class: "input" %>
+          <%= text_field_tag "log[start_at][date]", formatted_date(@log.start_at), class: "input date-input", id: "log_start_date" %>
         </div>
       </div>
     </div>
 
     <div class="column">
-      <%= f.label :end_at %>
+      <div class="field">
+        <%= f.label "start_at[time]", "Start Time" %>
+        <div class="control">
+          <%= f.text_field "start_at[time]", value: formatted_time(@log.start_at), class: "input time-input", id: "log_start_time" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="column">
+      <%= f.label "end_at[date]", "End Date" %>
+      <div class="field">
+        <div class="control">
+          <%= f.text_field "end_at[date]", value: formatted_date(@log.end_at), class: "input date-input", id: "log_end_date" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="column">
+      <%= f.label "end_at[time]", "End Time" %>
       <div class="field has-addons">
         <div class="control">
-          <%= f.text_field :end_at, value: formatted_time(@log.end_at), class: "input" %>
+          <%= f.text_field "end_at[time]", value: formatted_time(@log.end_at), class: "input time-input", id: "log_end_time" %>
         </div>
 
         <div class="control">
-          <%= button_tag "Now", type: :button, class: "button", onclick: "document.getElementById('log_end_at').value = moment().format('MMM DD, YYYY h:mm A');" %>
+          <%= button_tag "Now", type: :button, class: "button", onclick: "var m = moment(); document.getElementById('log_end_date').value = m.format('MM/DD/YYYY'); document.getElementById('log_end_time').value = m.format('h:mm A');" %>
         </div>
       </div>
     </div>

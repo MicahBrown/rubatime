@@ -15,4 +15,5 @@
 //= require turbolinks
 //= require moment
 //= require chart
+//= require inputmask
 //= require_tree .

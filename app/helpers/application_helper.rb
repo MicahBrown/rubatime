@@ -1,7 +1,12 @@
 module ApplicationHelper
+  def formatted_date(datetime)
+    return unless datetime.present?
+    datetime.in_time_zone(TIMEZONE).strftime("%-m/%-d/%Y")
+  end
+
   def formatted_time(datetime)
     return unless datetime.present?
-    datetime.in_time_zone(TIMEZONE).strftime("%b %e, %Y %-l:%M %p")
+    datetime.in_time_zone(TIMEZONE).strftime("%-l:%M %p")
   end
 
   def icon(icon_name, text=nil, options={})

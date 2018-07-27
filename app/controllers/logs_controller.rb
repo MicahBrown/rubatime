@@ -34,7 +34,7 @@ class LogsController < ApplicationController
   private
 
     def log_params
-      params.require(:log).permit(:project_id, :start_at, :end_at, :description)
+      params.require(:log).permit(:project_id, :description, start_at: [:date, :time], end_at: [:date, :time])
     end
 
     def update_log(log)

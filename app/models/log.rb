@@ -33,7 +33,12 @@ class Log < ApplicationRecord
   end
 
   def start_at=(value)
-    if value.is_a?(String) && value.match(/[a-z]{3}\s\d?\d,\s\d{4}/i)
+    if value.is_a?(Hash) && value[:date].present? && value[:time].present?
+      value = "#{value[:date]} #{value[:time]}"
+    end
+
+    if value.is_a?(String) && value.match(/(\d?\d)\/(\d?\d)\/(\d{4})(.+)/i)
+      value = "#{$2}/#{$1}/#{$3}#{$4}"
       value = ActiveSupport::TimeZone[TIMEZONE].parse(value)
     end
 
@@ -41,7 +46,12 @@ class Log < ApplicationRecord
   end
 
   def end_at=(value)
-    if value.is_a?(String) && value.match(/[a-z]{3}\s\d?\d,\s\d{4}/i)
+    if value.is_a?(Hash) && value[:date].present? && value[:time].present?
+      value = "#{value[:date]} #{value[:time]}"
+    end
+
+    if value.is_a?(String) && value.match(/\d?\d\/\d?\d\/\d{4}(.+)/i)
+      value = "#{$2}/#{$1}/#{$3}#{$4}"
       value = ActiveSupport::TimeZone[TIMEZONE].parse(value)
     end
 
