@@ -33,8 +33,8 @@ class Log < ApplicationRecord
   end
 
   def start_at=(value)
-    if value.is_a?(Hash) && value[:date].present? && value[:time].present?
-      value = "#{value[:date]} #{value[:time]}"
+    if value.is_a?(Hash)
+      value = value[:date].blank? && value[:time].blank? ? "" : "#{value[:date]} #{value[:time]}"
     end
 
     if value.is_a?(String) && value.match(/(\d?\d)\/(\d?\d)\/(\d{4})(.+)/i)
@@ -46,8 +46,8 @@ class Log < ApplicationRecord
   end
 
   def end_at=(value)
-    if value.is_a?(Hash) && value[:date].present? && value[:time].present?
-      value = "#{value[:date]} #{value[:time]}"
+    if value.is_a?(Hash)
+      value = value[:date].blank? && value[:time].blank? ? "" : "#{value[:date]} #{value[:time]}"
     end
 
     if value.is_a?(String) && value.match(/\d?\d\/\d?\d\/\d{4}(.+)/i)
