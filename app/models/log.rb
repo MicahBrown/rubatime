@@ -71,7 +71,7 @@ class Log < ApplicationRecord
       e - s
     end
 
-    seconds.inject(:+)
+    seconds.inject(:+) || 0
   end
 
   def self.previous_pay_period_dates
