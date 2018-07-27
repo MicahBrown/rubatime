@@ -9,7 +9,7 @@ setHours = ->
   edateValue = document.getElementById("log_end_date").value
   etimeValue = document.getElementById("log_end_time").value
 
-  if sdateValue == "" || stimeValue == "" || edateValue == "" || etimeValue == ""
+  if edateValue == "" || etimeValue == "" || sdateValue == "" || stimeValue == ""
     hoursInput.value = "--"
     return false
 
