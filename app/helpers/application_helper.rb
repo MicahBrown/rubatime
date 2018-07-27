@@ -9,6 +9,16 @@ module ApplicationHelper
     datetime.in_time_zone(TIMEZONE).strftime("%-l:%M %p")
   end
 
+  def input_date(datetime)
+    return unless datetime.present?
+    datetime.in_time_zone(TIMEZONE).to_date.to_s
+  end
+
+  def input_time(datetime)
+    return unless datetime.present?
+    datetime.in_time_zone(TIMEZONE).strftime("%H:%M")
+  end
+
   def icon(icon_name, text=nil, options={})
     options, text = text, nil if text.is_a?(Hash)
     options.merge!(class: "fas fa-#{icon_name} #{options[:class]}")

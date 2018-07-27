@@ -11,9 +11,9 @@
   <div class="columns">
     <div class="column">
       <div class="field">
-        <%= label_tag "log[start_at][date]", "Start Date" %>
+        <%= f.label "start_at[date]", "Start Date" %>
         <div class="control">
-          <%= text_field_tag "log[start_at][date]", formatted_date(@log.start_at), class: "input date-input", id: "log_start_date" %>
+          <%= f.date_field "start_at[date]", value: input_date(@log.start_at), class: "input date-input", id: "log_start_date", required: true, pattern: "[0-9]{2}/[0-9]{2}/[0-9]{4}" %>
         </div>
       </div>
     </div>
@@ -22,7 +22,7 @@
       <div class="field">
         <%= f.label "start_at[time]", "Start Time" %>
         <div class="control">
-          <%= f.text_field "start_at[time]", value: formatted_time(@log.start_at), class: "input time-input", id: "log_start_time" %>
+          <%= f.time_field "start_at[time]", value: input_time(@log.start_at), class: "input time-input", id: "log_start_time", required: true, pattern: "[0-1]{2}:[0-5][0-9] (A|P)M" %>
         </div>
       </div>
     </div>
@@ -31,7 +31,7 @@
       <%= f.label "end_at[date]", "End Date" %>
       <div class="field">
         <div class="control">
-          <%= f.text_field "end_at[date]", value: formatted_date(@log.end_at), class: "input date-input", id: "log_end_date" %>
+          <%= f.date_field "end_at[date]", value: input_date(@log.end_at), class: "input date-input", id: "log_end_date", pattern: "[0-9]{2}/[0-9]{2}/[0-9]{4}" %>
         </div>
       </div>
     </div>
@@ -40,7 +40,7 @@
       <%= f.label "end_at[time]", "End Time" %>
       <div class="field has-addons">
         <div class="control">
-          <%= f.text_field "end_at[time]", value: formatted_time(@log.end_at), class: "input time-input", id: "log_end_time" %>
+          <%= f.time_field "end_at[time]", value: input_time(@log.end_at), class: "input time-input", id: "log_end_time", pattern: "[0-1]{2}:[0-5][0-9] (A|P)M" %>
         </div>
 
         <div class="control">
