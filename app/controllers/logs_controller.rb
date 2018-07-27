@@ -17,10 +17,12 @@ class LogsController < ApplicationController
   def update
     @log = Log.find(params[:id])
 
-    if update_log(@log)
-      redirect_to dashboard_path, notice: "Successfully updated log"
-    else
-      render :edit
+    respond_to do |format|
+      if update_log(@log)
+        format.html { redirect_to dashboard_path, notice: "Successfully updated log" }
+      else
+        format.js
+      end
     end
   end
 

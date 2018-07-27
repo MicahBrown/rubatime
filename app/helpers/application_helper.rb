@@ -17,4 +17,12 @@ module ApplicationHelper
     content = content + content_tag(:span, text, style: "margin-left: 0.25rem;") if text.present?
     content
   end
+
+  def form_errors(object)
+    return unless object.present?
+    errors = object.errors.full_messages
+    return unless errors.present?
+
+    render "shared/form_errors", errors: errors
+  end
 end
