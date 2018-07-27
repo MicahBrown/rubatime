@@ -17,6 +17,7 @@
 //= require chart
 //= require inputmask
 //= require_self
+//= require title_clock
 //= require logs
 
 var loadEvent = new Event('js.load');

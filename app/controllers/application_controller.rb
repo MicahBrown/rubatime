@@ -18,6 +18,11 @@ class ApplicationController < ActionController::Base
     session[:auth] = nil
   end
 
+  def current_log
+    @current_log ||= Log.where(active: false).first
+  end
+  helper_method :current_log
+
   private
 
     def authenticate
