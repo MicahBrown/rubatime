@@ -29,7 +29,7 @@ document.addEventListener "js.load", (event) ->
     #   regex: "(0\\d|1[0-2])/(0\\d|1\\d|2\\d|3[0-1])/\\d{4}"
     #   placeholder: "mm/dd/yyyy"
     # }
-    # dateInputs = document.querySelectorAll(".date-input")
+    dateInputs = document.querySelectorAll(".date-input")
     # dateMask.mask(input) for input in dateInputs
 
 
@@ -38,7 +38,7 @@ document.addEventListener "js.load", (event) ->
     #   placeholder: "HH:MM xm"
     #   hourFormat: 12
     # }
-    # timeInputs = document.querySelectorAll(".time-input")
+    timeInputs = document.querySelectorAll(".time-input")
     # timeMask.mask(input) for input in timeInputs
 
     initChangeEvent(timeInputs)
