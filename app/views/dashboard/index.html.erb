@@ -73,9 +73,13 @@
     <% @logs.each do |log| %>
       <tr>
         <td style="text-align: center;"><%= icon(log.active? ? 'check' : 'times', class: log.active? ? "has-text-success" : "has-text-danger") %></td>
-        <td><%= formatted_time(log.start_at) %></td>
+        <td>
+          <%= formatted_date(log.start_at) %>
+          <%= formatted_time(log.start_at) %>
+        </td>
         <td>
           <% if log.end_at? %>
+            <%= formatted_date(log.end_at) %>
             <%= formatted_time(log.end_at) %>
           <% else %>
             <span>Not Set</span>
