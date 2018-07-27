@@ -34,7 +34,16 @@ class Log < ApplicationRecord
 
   def start_at=(value)
     if value.is_a?(Hash)
-      value = value[:date].blank? && value[:time].blank? ? "" : "#{value[:date]} #{value[:time]}"
+      value =
+        if value[:date].blank? && value[:time].blank?
+          ""
+        elsif value[:date].match(/\d{4}/)
+          "#{value[:date]} #{value[:time]}".in_time_zone(TIMEZONE)
+        elsif value[:date].match(/\d?\d\/\d?\d\/\d{4}/)
+          "#{value[:date]} #{value[:time]}"
+        else
+          raise ArgumentError, "invalid hash value"
+        end
     end
 
     if value.is_a?(String) && value.match(/(\d?\d)\/(\d?\d)\/(\d{4})(.+)/i)
@@ -47,7 +56,16 @@ class Log < ApplicationRecord
 
   def end_at=(value)
     if value.is_a?(Hash)
-      value = value[:date].blank? && value[:time].blank? ? "" : "#{value[:date]} #{value[:time]}"
+      value =
+        if value[:date].blank? && value[:time].blank?
+          ""
+        elsif value[:date].match(/\d{4}/)
+          "#{value[:date]} #{value[:time]}".in_time_zone(TIMEZONE)
+        elsif value[:date].match(/\d?\d\/\d?\d\/\d{4}/)
+          "#{value[:date]} #{value[:time]}"
+        else
+          raise ArgumentError, "invalid hash value"
+        end
     end
 
     if value.is_a?(String) && value.match(/(\d?\d)\/(\d?\d)\/(\d{4})(.+)/i)
