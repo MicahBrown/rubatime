@@ -2,8 +2,28 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
+setHours = ->
+  hoursInput = document.getElementById("hours")
+  sdateValue = document.getElementById("log_start_date").value
+  stimeValue = document.getElementById("log_start_time").value
+  edateValue = document.getElementById("log_end_date").value
+  etimeValue = document.getElementById("log_end_time").value
+
+  if sdateValue == "" || stimeValue == "" || edateValue == "" || etimeValue == ""
+    hoursInput.value = "--"
+    return false
+
+  edatetime = moment(edateValue + " " + etimeValue, "MM-DD-YYYY hh:mm A")
+  sdatetime = moment(sdateValue + " " + stimeValue, "MM-DD-YYYY hh:mm A")
+  diff = edatetime - sdatetime
+
+  hoursInput.value = diff / 1000.0 / 60/  60
+
+initChangeEvent = (inputs) ->
+  for input in inputs
+    input.onchange = -> setHours()
+
 document.addEventListener "js.load", (event) ->
-  console.log "here"
   dateMask = new Inputmask {
     regex: "(0\\d|1[0-2])/(0\\d|1\\d|2\\d|3[0-1])/\\d{4}"
     placeholder: "mm/dd/yyyy"
@@ -19,3 +39,7 @@ document.addEventListener "js.load", (event) ->
   }
   timeInputs = document.querySelectorAll(".time-input")
   timeMask.mask(input) for input in timeInputs
+
+  initChangeEvent(timeInputs)
+  initChangeEvent(dateInputs)
+  setHours()
