@@ -1,11 +1,11 @@
 module LogsHelper
   def hours_by_weeks(number_of_weeks, start_at: Date.today)
-    last_week_start = start_at.next_week.in_time_zone(TIMEZONE).beginning_of_week
+    last_week_start = start_at.next_week.in_time_zone(TIMEZONE).beginning_of_week(:sunday)
     weeks = {}
 
     number_of_weeks.times do |x|
       week_end = (last_week_start - 1.second)
-      week_start = week_end.beginning_of_week
+      week_start = week_end.beginning_of_week(:sunday)
 
       weeks[x] = {label: week_label(week_start, week_end), hours: 0}
 
