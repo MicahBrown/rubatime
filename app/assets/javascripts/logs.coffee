@@ -13,8 +13,8 @@ setHours = ->
     hoursInput.value = "--"
     return false
 
-  edatetime = moment(edateValue + " " + etimeValue, "MM-DD-YYYY hh:mm A")
-  sdatetime = moment(sdateValue + " " + stimeValue, "MM-DD-YYYY hh:mm A")
+  edatetime = moment(edateValue + " " + etimeValue, "YYYY-MM-DD HH:mm")
+  sdatetime = moment(sdateValue + " " + stimeValue, "YYYY-MM-DD HH:mm")
   diff = edatetime - sdatetime
 
   hoursInput.value = diff / 1000.0 / 60/  60
