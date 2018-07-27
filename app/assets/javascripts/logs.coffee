@@ -2,7 +2,8 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-document.addEventListener "DOMContentLoaded", (event) ->
+document.addEventListener "js.load", (event) ->
+  console.log "here"
   dateMask = new Inputmask {
     regex: "(0\\d|1[0-2])/(0\\d|1\\d|2\\d|3[0-1])/\\d{4}"
     placeholder: "mm/dd/yyyy"

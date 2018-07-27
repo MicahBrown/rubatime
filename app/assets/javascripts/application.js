@@ -17,3 +17,46 @@
 //= require chart
 //= require inputmask
 //= require_tree .
+
+var loadEvent = new Event('js.load');
+
+var loadJavascript = function(){
+  var body = document.body
+  var isSet = body.dataset.jsSet
+
+  if (isSet != "true") {
+    body.dataset.jsSet = true;
+    document.dispatchEvent(loadEvent);
+    return true;
+  }
+
+  return false;
+}
+
+document.addEventListener('js.load', () => { initHeader() });
+document.addEventListener('turbolinks:load', loadJavascript);
+document.addEventListener('DOMContentLoaded', loadJavascript);
+
+var initHeader = function(){
+  // Get all "navbar-burger" elements
+  const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+  // Check if there are any navbar burgers
+  if ($navbarBurgers.length > 0) {
+
+    // Add a click event on each of them
+    $navbarBurgers.forEach( el => {
+      el.addEventListener('click', () => {
+
+        // Get the target from the "data-target" attribute
+        const target = el.dataset.target;
+        const $target = document.getElementById(target);
+
+        // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+        el.classList.toggle('is-active');
+        $target.classList.toggle('is-active');
+
+      });
+    });
+  }
+};
