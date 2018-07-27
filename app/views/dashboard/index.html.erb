@@ -71,7 +71,7 @@
   </thead>
   <tbody>
     <% @logs.each do |log| %>
-      <tr>
+      <tr style="<%= 'background: #ddd;' unless log.active? %>">
         <td style="text-align: center;"><%= icon(log.active? ? 'check' : 'times', class: log.active? ? "has-text-success" : "has-text-danger") %></td>
         <td>
           <%= formatted_date(log.start_at) %>
