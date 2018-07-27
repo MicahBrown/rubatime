@@ -50,7 +50,7 @@ class Log < ApplicationRecord
       value = value[:date].blank? && value[:time].blank? ? "" : "#{value[:date]} #{value[:time]}"
     end
 
-    if value.is_a?(String) && value.match(/\d?\d\/\d?\d\/\d{4}(.+)/i)
+    if value.is_a?(String) && value.match(/(\d?\d)\/(\d?\d)\/(\d{4})(.+)/i)
       value = "#{$2}/#{$1}/#{$3}#{$4}"
       value = ActiveSupport::TimeZone[TIMEZONE].parse(value)
     end
