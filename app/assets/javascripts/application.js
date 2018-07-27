@@ -16,7 +16,8 @@
 //= require moment
 //= require chart
 //= require inputmask
-//= require_tree .
+//= require_self
+//= require logs
 
 var loadEvent = new Event('js.load');
 
