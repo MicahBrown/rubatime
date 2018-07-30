@@ -27,7 +27,7 @@ class ExportsController < ApplicationController
 
           csv << [log.id, "Micah", log.project.name, "", "", 100, "", "", start_time.to_datetime, start_time.to_date, end_time.to_datetime, hours(start_time, end_time), "FALSE", log.description]
         end
-      end
+      end.encode('WINDOWS-1252', undef: :replace, replace: '')
     end
 
     def hours(start_time, end_time)
