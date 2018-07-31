@@ -25,7 +25,7 @@ class ExportsController < ApplicationController
           end_time = log.end_at.in_time_zone(TIMEZONE)
           end_time = max_time if end_time > max_time
 
-          csv << [log.id, "Micah", log.project.name, "", "", 100, "", "", start_time.to_datetime, start_time.to_date, end_time.to_datetime, hours(start_time, end_time), "FALSE", log.description]
+          csv << [log.id, "Micah", log.project.name, "", "", 100, "", "", start_time.to_datetime.strftime("%-m/%d/%Y %-l:%m %P"), start_time.to_date, end_time.to_datetime.strftime("%-m/%d/%Y %-l:%m %P"), hours(start_time, end_time), "FALSE", log.description]
         end
       end.encode('WINDOWS-1252', undef: :replace, replace: '')
     end
