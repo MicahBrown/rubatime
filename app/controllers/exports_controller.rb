@@ -2,8 +2,9 @@ require 'csv'
 
 class ExportsController < ApplicationController
   def create
-    prev_period = Log.current_pay_period_dates
-    # prev_period = last_month.beginning_of_month..last_month.end_of_month
+    # prev_period = Log.current__pay_period_dates
+    last_month = Date.today
+    prev_period = last_month.beginning_of_month..last_month.end_of_month
     logs = Log.in_datetime_range(prev_period.min, prev_period.max).active.order("start_at ASC, end_at ASC")
 
     respond_to do |format|
@@ -26,7 +27,7 @@ class ExportsController < ApplicationController
           end_time = log.end_at.in_time_zone(TIMEZONE)
           end_time = max_time if end_time > max_time
 
-          csv << [log.id, "Micah", log.project.name, "", "", 100, "", "", start_time.to_datetime.strftime("%-m/%d/%Y %-l:%m %P"), start_time.to_date, end_time.to_datetime.strftime("%-m/%d/%Y %-l:%m %P"), hours(start_time, end_time), "FALSE", log.description]
+          csv << [log.id, "Micah", log.project.name, "", "", 100, "", "", start_time.to_datetime.strftime("%-m/%d/%Y %-l:%M %P"), start_time.to_date, end_time.to_datetime.strftime("%-m/%d/%Y %-l:%m %P"), hours(start_time, end_time), "FALSE", log.description]
         end
       end.encode('WINDOWS-1252', undef: :replace, replace: '')
     end
