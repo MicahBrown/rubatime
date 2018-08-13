@@ -2,9 +2,7 @@ require 'csv'
 
 class ExportsController < ApplicationController
   def create
-    # prev_period = Log.current__pay_period_dates
-    last_month = Date.today.in_time_zone(TIMEZONE)
-    prev_period = last_month.beginning_of_month..last_month.end_of_month
+    prev_period = Log.previous_pay_period_datetimes
     logs = Log.in_datetime_range(prev_period.min, prev_period.max).active.order("start_at ASC, end_at ASC")
 
     respond_to do |format|

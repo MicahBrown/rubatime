@@ -1,7 +1,4 @@
 class Log < ApplicationRecord
-  PAY_PERIOD_START_DATE = Date.new(2018, 7, 15).freeze
-  PAY_PERIOD_DURATION = 2.weeks.freeze
-
   belongs_to :project, optional: true
 
   scope :active, -> { where(active: true) }
@@ -94,24 +91,30 @@ class Log < ApplicationRecord
 
   def self.previous_pay_period_dates
     current_period = current_pay_period_dates
-    prev_sdate = current_period.min - PAY_PERIOD_DURATION
     prev_edate = current_period.min - 1.day
+    sdate, edate =
+      if prev_edate.day == 15
+        [prev_edate.beginning_of_month, prev_edate]
+      else
+        [prev_edate.change(day: 15), prev_edate]
+      end
 
-    prev_sdate..prev_edate
+    sdate..edate
+  end
+
+  def self.previous_pay_period_datetimes
+    min, max = previous_pay_period_dates.min, previous_pay_period_dates.max
+    min.in_time_zone(TIMEZONE).beginning_of_day..max.in_time_zone(TIMEZONE).end_of_day
   end
 
   def self.current_pay_period_dates
     today = Date.today
-    sdate = PAY_PERIOD_START_DATE.dup
-    edate = nil
-
-    loop do
-      next_sdate = sdate + PAY_PERIOD_DURATION
-      edate = next_sdate - 1.day
-      break if edate >= today
-
-      sdate = next_sdate
-    end
+    sdate, edate =
+      if today.day <= 15
+        [today.beginning_of_month, today.change(day: 15)]
+      else
+        [today.change(day: 16), today.end_of_month]
+      end
 
     sdate..edate
   end
