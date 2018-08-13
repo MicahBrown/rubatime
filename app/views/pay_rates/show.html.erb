@@ -1,0 +1,22 @@
+<h1 class="title">Pay Rates</h1>
+
+<%= link_to icon("plus-circle", "Change Pay Rate"), new_pay_rate_path, class: "button is-link" %>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Start</th>
+      <th>End</th>
+      <th>Rate</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @pay_rates.each do |pay_rate| %>
+      <tr>
+        <td><%= formatted_date(pay_rate.effective_start_date) %></td>
+        <td><%= pay_rate.current? ? "Current" : formatted_date(pay_rate.effective_end_date) %></td>
+        <td><%= pay_rate.rate %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

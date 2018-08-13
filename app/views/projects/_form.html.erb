@@ -5,7 +5,7 @@
   </ul>
 </nav>
 
-<h1 class="title">New Project</h1>
+<h1 class="title"><%= params[:action].titleize %> Project</h1>
 
 <%= form_for project do |f| %>
   <div class="field">
