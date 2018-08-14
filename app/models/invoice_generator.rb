@@ -175,13 +175,13 @@ class InvoiceGenerator
 
       pay_rate = get_pay_rate!
       start_at = @invoice.start_date.in_time_zone(TIMEZONE)
-      end_at = @invoice.end_date.in_time_zone(TIMEZONE)
+      end_at = @invoice.end_date.in_time_zone(TIMEZONE).end_of_day
       logs = Log.in_datetime_range(start_at, end_at)
 
-      elapsed_seconds = logs.map do |log|
-        s = log.start_at
+      elapsed_seconds = logs.sort_by(&:start_at).map do |log|
+        s = log.start_at.in_time_zone(TIMEZONE)
         s = start_at if start_at > s
-        e = log.end_at
+        e = log.end_at.in_time_zone(TIMEZONE)
         e = end_at if end_at < e
         e - s
       end.inject(:+)
