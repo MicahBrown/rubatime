@@ -186,7 +186,7 @@ class InvoiceGenerator
         e - s
       end.inject(:+)
 
-      description = "#{@invoice.start_date.strftime("%b %-e")} - #{@invoice.end_date.strftime("%b %-e")} Services for #{logs.map(&:project).uniq.map(&:name).sort.to_sentence}"
+      description = "#{@invoice.start_date.strftime("%b %-e")} - #{@invoice.end_date.strftime("%b %-e")} Services for #{logs.map(&:project).uniq.map(&:short_name).sort.to_sentence}"
 
       @data = {
         elapsed_seconds: elapsed_seconds,
