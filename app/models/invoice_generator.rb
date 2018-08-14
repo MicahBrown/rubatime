@@ -178,12 +178,12 @@ class InvoiceGenerator
       end_at = @invoice.end_date.in_time_zone(TIMEZONE).end_of_day
       logs = Log.in_datetime_range(start_at, end_at)
 
-      elapsed_seconds = logs.sort_by(&:start_at).map do |log|
+      elapsed_seconds = logs.map do |log|
         s = log.start_at.in_time_zone(TIMEZONE)
         s = start_at if start_at > s
         e = log.end_at.in_time_zone(TIMEZONE)
         e = end_at if end_at < e
-        e - s
+        ((e - s) / 60 / 60).round(2)
       end.inject(:+)
 
       description = "#{@invoice.start_date.strftime("%b %-e")} - #{@invoice.end_date.strftime("%b %-e")} Services for #{logs.map(&:project).uniq.map(&:short_name).sort.to_sentence}"
