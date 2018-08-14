@@ -70,6 +70,7 @@
       <th>End</th>
       <th>Hours</th>
       <th>Project</th>
+      <th>Description</th>
       <th style="text-align: center;" colspan="2">Actions</th>
     </tr>
   </thead>
@@ -96,7 +97,8 @@
             <span>N/A</span>
           <% end %>
         </td>
-        <td><%= log.project&.name || "Not Set" %></td>
+        <td><%= log.project&.short_name || "Not Set" %></td>
+        <td><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: inline-block; max-width: 300px;" title="<%= log.description %>"><%= log.description %></span></td>
         <td><%= link_to "Edit", edit_log_path(log) %></td>
         <td><%= link_to "Delete", log_path(log), method: :delete, data: {confirm: "Are you sure?"} %></td>
       </tr>
