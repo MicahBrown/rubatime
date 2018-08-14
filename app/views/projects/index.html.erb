@@ -6,6 +6,7 @@
   <thead>
     <tr>
       <th>Name</th>
+      <th>Short</th>
       <th>Actions</th>
     </tr>
   </thead>
@@ -13,6 +14,7 @@
     <% @projects.each do |project| %>
       <tr>
         <td><%= project.name %></td>
+        <td><%= project.short_name %></td>
         <td><%= link_to "Edit", edit_project_path(project) %></td>
       </tr>
     <% end %>
