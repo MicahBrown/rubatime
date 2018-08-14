@@ -163,7 +163,7 @@ class InvoiceGenerator
     end
 
     def hours
-      data[:elapsed_hours)
+      data[:elapsed_hours]
     end
 
     def total
