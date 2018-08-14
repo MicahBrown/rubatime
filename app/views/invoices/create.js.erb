@@ -1,0 +1,11 @@
+var form = document.querySelector(".invoice-form");
+var errors = form.querySelector(".errors");
+
+if (errors == null) {
+  errors = document.createElement('div');
+  errors.className = "errors notification is-danger"
+  form.appendChild(errors);
+  form.insertBefore(errors, form.firstChild);
+}
+
+errors.innerHTML = "<%=j form_errors(@invoice) %>";
