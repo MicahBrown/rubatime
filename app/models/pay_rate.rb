@@ -1,5 +1,6 @@
 class PayRate < ApplicationRecord
   scope :latest, -> { order("effective_start_date DESC") }
+  scope :in_datetime_range, -> (sdatetime, edatetime) { where("(logs.start_at <= ?) AND (logs.end_at >= ?)", edatetime, sdatetime) }
 
   validates :effective_start_date, presence: true
   validates :effective_end_date, presence: {unless: :current?}

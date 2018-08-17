@@ -1,0 +1,2 @@
+class EstimatedTax < ApplicationRecord
+end

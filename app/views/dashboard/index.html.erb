@@ -56,10 +56,20 @@
   </div>
 </div>
 
+<div class="columns">
+  <div class="column is-three-fifths">
+    <div class="box">
+      <span class="title"><%= pluralize(number_with_precision(Log.current_pay_period_elapsed_seconds / 60.0 / 60, strip_insignificant_zeros: true, precision: 2), "Hour") %> This Pay Period</span>
+      <small><%= Log.current_pay_period_dates.min.strftime("%b %e, %Y") %> - <%= Log.current_pay_period_dates.max.strftime("%b %e, %Y") %></small>
+    </div>
+  </div>
 
-<div class="box">
-  <span class="title"><%= pluralize(number_with_precision(Log.current_pay_period_elapsed_seconds / 60.0 / 60, strip_insignificant_zeros: true, precision: 2), "Hour") %> This Pay Period</span>
-  <small><%= Log.current_pay_period_dates.min.strftime("%b %e, %Y") %> - <%= Log.current_pay_period_dates.max.strftime("%b %e, %Y") %></small>
+  <div class="column">
+    <div class="box">
+      <span class="title"><%= estimated_tax %></span>
+      Estimated <%= Date.today.year %> Tax
+    </div>
+  </div>
 </div>
 
 <table class="table" style="width: 100%;">

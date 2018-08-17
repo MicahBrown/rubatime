@@ -17,11 +17,16 @@ class Log < ApplicationRecord
   end
 
   before_validation :set_elapsed_time
+  after_save :update_estimated_taxes
 
   def set_elapsed_time
     if valid_time_range?
       self.elapsed_seconds = end_at - start_at
     end
+  end
+
+  def update_estimated_taxes
+    EstimatedTaskCalculatorJob.perform_later if saved_change_to_start_at? || saved_changed_to_end_at?
   end
 
   def hours(scale=2)

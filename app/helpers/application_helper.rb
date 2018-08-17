@@ -35,4 +35,8 @@ module ApplicationHelper
 
     render "shared/form_errors", errors: errors
   end
+
+  def estimated_tax
+    number_to_currency(EstimatedTax.last&.value || 0)
+  end
 end
