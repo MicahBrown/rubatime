@@ -26,7 +26,7 @@ class Log < ApplicationRecord
   end
 
   def update_estimated_taxes
-    EstimatedTaskCalculatorJob.perform_later if saved_change_to_start_at? || saved_changed_to_end_at?
+    EstimatedTaskCalculatorJob.perform_later if saved_change_to_start_at? || saved_change_to_end_at?
   end
 
   def hours(scale=2)
