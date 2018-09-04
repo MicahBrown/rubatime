@@ -65,7 +65,7 @@ class Log < ApplicationRecord
       if prev_edate.day == 15
         [prev_edate.beginning_of_month, prev_edate]
       else
-        [prev_edate.change(day: 15), prev_edate]
+        [prev_edate.change(day: 16), prev_edate]
       end
 
     sdate..edate
