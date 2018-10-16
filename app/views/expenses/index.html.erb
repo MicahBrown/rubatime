@@ -1,0 +1,51 @@
+<h1 class="title">Expenses</h1>
+
+
+<h5 class="title is-5">Create New Expense</h5>
+<%= form_for @expense, remote: true, html: {class: "expense-form"} do |f| %>
+  <%= f.hidden_field :category, value: :lodging %>
+  <div class="columns">
+    <div class="column">
+      <div class="field">
+        <%= f.label :expense_date %>
+        <div class="control">
+          <%= f.date_field :expense_date, value: input_date(@expense.expense_date), required: true, class: "input date-input", pattern: "[0-9]{2}/[0-9]{2}/[0-9]{4}" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="column">
+      <div class="field">
+        <%= f.label :amount %>
+        <div class="control">
+          <%= f.number_field :amount, step: "any", class: "input", min: 0, required: true %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <%= f.submit class: "button is-primary" %>
+  </div>
+<% end %>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Category</th>
+      <th>Value</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @expenses.each do |expense| %>
+      <tr>
+        <td><%= formatted_date(expense.expense_date) %></td>
+        <td><%= expense.formatted_category %></td>
+        <td><%= expense.amount %></td>
+        <td><%= link_to icon("trash"), expense_path(expense), method: :delete, data: {confirm: "Are you sure?"} %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

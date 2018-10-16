@@ -64,13 +64,21 @@ class InvoiceGenerator
         @pdf.bounding_box([0, 300], width: width - 225, height: 300) do
           @pdf.stroke_bounds
 
-          @pdf.move_down 50
-          @pdf.text data[:description], align: :center
-
           @pdf.bounding_box([0, 300], width: width - 225, height: 24) do
             @pdf.stroke_bounds
             @pdf.move_down(8)
             @pdf.text "Description", align: :center, color: "888888"
+          end
+
+          @pdf.bounding_box([0, 300 - 24], width: width - 225, height: 100) do
+            @pdf.move_down 24
+            @pdf.text data[:description], align: :center
+          end
+
+          @pdf.bounding_box([0, 300 - 24 - 100], width: width - 225, height: 300 - 24 - 100) do
+            data[:expenses].each do |expense|
+              @pdf.text "+ #{expense.formatted_category} (expense from #{expense.expense_date.strftime("%-m/%-e/%Y")})", align: :center, size: 9.5
+            end
           end
         end
 
@@ -78,13 +86,15 @@ class InvoiceGenerator
         @pdf.bounding_box([width - 225, 300], width: 65, height: 300) do
           @pdf.stroke_bounds
 
-          @pdf.move_down 50
-          @pdf.text to_decimal(hours), align: :center
-
           @pdf.bounding_box([0, 300], width: 65, height: 24) do
             @pdf.stroke_bounds
             @pdf.move_down(8)
             @pdf.text "Hours", align: :center, color: "888888"
+          end
+
+          @pdf.bounding_box([0, 300 - 24], width: 65, height: 300 - 24) do
+            @pdf.move_down 24
+            @pdf.text to_decimal(hours), align: :center
           end
         end
 
@@ -92,13 +102,15 @@ class InvoiceGenerator
         @pdf.bounding_box([width - 160, 300], width: 65, height: 300) do
           @pdf.stroke_bounds
 
-          @pdf.move_down 50
-          @pdf.text to_decimal(data[:rate]), align: :center
-
           @pdf.bounding_box([0, 300], width: 65, height: 24) do
             @pdf.stroke_bounds
             @pdf.move_down(8)
             @pdf.text "Rate", align: :center, color: "888888"
+          end
+
+          @pdf.bounding_box([0, 300 - 24], width: 65, height: 300 - 24) do
+            @pdf.move_down 24
+            @pdf.text to_decimal(data[:rate]), align: :center
           end
         end
 
@@ -106,13 +118,21 @@ class InvoiceGenerator
         @pdf.bounding_box([width - 95, 300], width: 95, height: 300) do
           @pdf.stroke_bounds
 
-          @pdf.move_down 50
-          @pdf.text currency(total), align: :center
-
           @pdf.bounding_box([0, 300], width: 95, height: 24) do
             @pdf.stroke_bounds
             @pdf.move_down(8)
             @pdf.text "Amount", align: :center, color: "888888"
+          end
+
+          @pdf.bounding_box([0, 300 - 24], width: 95, height: 100) do
+            @pdf.move_down 24
+            @pdf.text currency(hours_total), align: :center
+          end
+
+          @pdf.bounding_box([0, 300 - 24 - 100], width: 95, height: 300 - 24 - 100) do
+            data[:expenses].each do |expense|
+              @pdf.text currency(expense.amount), align: :center, size: 9.5
+            end
           end
         end
       end
@@ -166,8 +186,16 @@ class InvoiceGenerator
       data[:elapsed_hours]
     end
 
-    def total
+    def expenses_total
+      (data[:expenses].map(&:amount).inject(:+) || 0).round(2)
+    end
+
+    def hours_total
       (hours * data[:rate]).round(2)
+    end
+
+    def total
+      hours_total + expenses_total
     end
 
     def data
@@ -188,10 +216,13 @@ class InvoiceGenerator
 
       description = "#{@invoice.start_date.strftime("%b %-e")} - #{@invoice.end_date.strftime("%b %-e")} Services for #{logs.map(&:project).uniq.map(&:short_name).sort.to_sentence}"
 
+      expenses = Expense.in_date_range(@invoice.start_date, @invoice.end_date).order("expense_date DESC")
+
       @data = {
         elapsed_hours: elapsed_hours,
         description: description,
-        rate: pay_rate.rate
+        rate: pay_rate.rate,
+        expenses: expenses
       }
     end
 end

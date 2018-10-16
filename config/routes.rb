@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :expenses, only: [:create, :index, :destroy]
   resources :invoices, only: [:create, :index]
   resource :pay_rate, only: [:show, :new, :create]
   resources :exports, only: [:create]
