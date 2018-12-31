@@ -1,6 +1,6 @@
 class InvoicesController < ApplicationController
   def index
-    prev_preriod = Log.current_pay_period_datetimes
+    prev_preriod = Log.previous_pay_period_datetimes
     @invoices = Invoice.order("created_at DESC").page(params[:page])
     @invoice = Invoice.new(start_date: prev_preriod.min, end_date: prev_preriod.max)
   end
