@@ -88,6 +88,11 @@ class Log < ApplicationRecord
     sdate..edate
   end
 
+  def self.current_pay_period_datetimes
+    min, max = current_pay_period_dates.min, current_pay_period_dates.max
+    min.in_time_zone(TIMEZONE).beginning_of_day..max.in_time_zone(TIMEZONE).end_of_day
+  end
+
 
   def self.current_pay_period_elapsed_seconds
     date_range = current_pay_period_dates
