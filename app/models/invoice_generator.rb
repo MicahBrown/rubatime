@@ -175,7 +175,7 @@ class InvoiceGenerator
 
     def to_decimal(float)
       pieces = float.round(2).to_s.split(".")
-      pieces.first.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse + "." + pieces.last.rjust(2, "0")
+      pieces.first.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse + "." + pieces.last.ljust(2, "0")
     end
 
     def currency(float)
