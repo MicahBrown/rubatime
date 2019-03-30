@@ -2,12 +2,12 @@ require 'csv'
 
 class ExportsController < ApplicationController
   def create
-    prev_period = Log.previous_pay_period_datetimes
-    logs = Log.in_datetime_range(prev_period.min, prev_period.max).active.order("start_at ASC, end_at ASC")
+    period = Log.current_pay_period_datetimes
+    logs = Log.in_datetime_range(period.min, period.max).active.order("start_at ASC, end_at ASC")
 
     respond_to do |format|
       format.csv do
-        send_data render_csv(logs, prev_period), filename: "Pay Period - #{prev_period.min} to #{prev_period.max}.csv"
+        send_data render_csv(logs, period), filename: "Pay Period - #{period.min} to #{period.max}.csv"
       end
     end
   end
