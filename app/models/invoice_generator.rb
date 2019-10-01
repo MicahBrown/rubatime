@@ -29,7 +29,7 @@ class InvoiceGenerator
         # @pdf.stroke_bounds
 
         @pdf.text "Rubatic LLC", style: :bold, size: 14
-        @pdf.text "8965 E Florida Ave 01-102", size: 14
+        @pdf.text "8965 E Florida Ave 10-306", size: 14
         @pdf.text "Denver, CO 80247", size: 14
         @pdf.text "(785) 410-7302", size: 14
       end
