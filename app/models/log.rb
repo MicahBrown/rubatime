@@ -99,6 +99,11 @@ class Log < ApplicationRecord
     elapsed_seconds_for(date_range.min, date_range.max)
   end
 
+  def self.parse_datetime_range(raw_start_date, raw_end_date)
+    min, max = DateParser.parse(raw_start_date), DateParser.parse(raw_end_date)
+    min.in_time_zone(TIMEZONE).beginning_of_day..max.in_time_zone(TIMEZONE).end_of_day
+  end
+
   private
 
     def valid_time_range?

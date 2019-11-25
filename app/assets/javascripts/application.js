@@ -19,6 +19,7 @@
 //= require_self
 //= require title_clock
 //= require logs
+//= require dashboard
 
 var loadEvent = new Event('js.load');
 

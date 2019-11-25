@@ -2,7 +2,7 @@ require 'csv'
 
 class ExportsController < ApplicationController
   def create
-    period = Log.previous_pay_period_datetimes
+    period = Log.parse_datetime_range(params[:start_date], params[:end_date])
     logs = Log.in_datetime_range(period.min, period.max).active.order("start_at ASC, end_at ASC")
 
     respond_to do |format|
