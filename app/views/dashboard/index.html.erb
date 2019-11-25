@@ -14,22 +14,36 @@
         <div class="modal-content">
           <div class="box">
             <%= form_tag exports_path(format: :csv), method: :post do %>
-              <div class="field has-addons">
-                <div class="control has-icons-left">
-                  <%= date_field_tag :start_date, input_date(1.week.ago.beginning_of_week), required: true, class: "input is-medium date-input", pattern: "[0-9]{2}/[0-9]{2}/[0-9]{4}", placeholder: "Start Date" %>
-                  <span class="icon is-left">
-                    <i class="fas fa-calendar fa-sm"></i>
-                  </span>
+              <div>
+                <label class="label">Date Range</label>
+                <div class="field has-addons">
+                  <div class="control has-icons-left">
+                    <%= date_field_tag :start_date, input_date(1.week.ago.beginning_of_week), required: true, class: "input is-medium date-input", pattern: "[0-9]{2}/[0-9]{2}/[0-9]{4}", placeholder: "Start Date" %>
+                    <span class="icon is-left">
+                      <i class="fas fa-calendar fa-sm"></i>
+                    </span>
+                  </div>
+                  <div class="control has-icons-left">
+                    <%= date_field_tag :end_date, input_date(1.week.ago.end_of_week), required: true, class: "input is-medium date-input", pattern: "[0-9]{2}/[0-9]{2}/[0-9]{4}", placeholder: "End Date" %>
+                    <span class="icon is-left">
+                      <i class="fas fa-calendar fa-sm"></i>
+                    </span>
+                  </div>
                 </div>
-                <div class="control has-icons-left">
-                  <%= date_field_tag :end_date, input_date(1.week.ago.end_of_week), required: true, class: "input is-medium date-input", pattern: "[0-9]{2}/[0-9]{2}/[0-9]{4}", placeholder: "End Date" %>
-                  <span class="icon is-left">
-                    <i class="fas fa-calendar fa-sm"></i>
-                  </span>
+
+                <div class="field">
+                  <label class="label">Project</label>
+                  <div class="select">
+                    <%= select_tag :project_id, options_from_collection_for_select(Project.alphabetized, :id, :name), include_blank: "All" %>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <div class="control">
+                    <%= button_tag icon("file-export", "Export Hours From Dates"), class: "button is-link", type: :submit %>
+                  </div>
                 </div>
               </div>
-
-              <%= button_tag icon("file-export", "Export Hours From Dates"), class: "button is-link", type: :submit %>
             <% end %>
           </div>
         </div>

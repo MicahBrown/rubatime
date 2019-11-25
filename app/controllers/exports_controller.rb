@@ -4,6 +4,7 @@ class ExportsController < ApplicationController
   def create
     period = Log.parse_datetime_range(params[:start_date], params[:end_date])
     logs = Log.in_datetime_range(period.min, period.max).active.order("start_at ASC, end_at ASC")
+    logs = logs.where(project_id: params[:project_id]) if params[:project_id].present?
 
     respond_to do |format|
       format.csv do
