@@ -24,7 +24,7 @@
                     </span>
                   </div>
                   <div class="control has-icons-left">
-                    <%= date_field_tag :end_date, input_date(1.week.ago.end_of_week), required: true, class: "input is-medium date-input", pattern: "[0-9]{2}/[0-9]{2}/[0-9]{4}", placeholder: "End Date" %>
+                    <%= date_field_tag :end_date, input_date(1.week.ago.end_of_week - 1.day), required: true, class: "input is-medium date-input", pattern: "[0-9]{2}/[0-9]{2}/[0-9]{4}", placeholder: "End Date" %>
                     <span class="icon is-left">
                       <i class="fas fa-calendar fa-sm"></i>
                     </span>
