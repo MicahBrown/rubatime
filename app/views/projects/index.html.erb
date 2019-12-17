@@ -7,15 +7,16 @@
     <tr>
       <th>Name</th>
       <th>Short</th>
-      <th>Actions</th>
+      <th class="has-text-centered" colspan="2">Actions</th>
     </tr>
   </thead>
   <tbody>
     <% @projects.each do |project| %>
-      <tr>
+      <tr style="<%= 'opacity: 0.5' if project.archived? %>">
         <td><%= project.name %></td>
         <td><%= project.short_name %></td>
         <td><%= link_to "Edit", edit_project_path(project) %></td>
+        <td><%= link_to "#{project.archived? ? 'Una' : 'A'}rchive", project_path(project, project: {archived: !project.archived?}), method: :patch %></td>
       </tr>
     <% end %>
   </tbody>

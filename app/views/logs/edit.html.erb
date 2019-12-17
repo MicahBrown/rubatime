@@ -64,7 +64,11 @@
         <%= f.label :project_id %>
         <div class="control">
           <div class="select">
-            <%= f.collection_select :project_id, Project.alphabetized, :id, :name, {prompt: "Please select"} %>
+            <%
+              projects = Project.alphabetized.unarchived
+              projects = projects | [@log.project] if @log.project.present? && projects.exclude?(@log.project)
+            %>
+            <%= f.collection_select :project_id, projects, :id, :name, {prompt: "Please select"} %>
           </div>
         </div>
       </div>
