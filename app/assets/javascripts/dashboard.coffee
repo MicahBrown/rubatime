@@ -35,18 +35,20 @@ setupChart = ->
       datasets: [{
         label: '# of Hours',
         data: values,
-        backgroundColor: 'rgba(50, 155, 220, 0.56)',
-        borderColor: 'rgba(50,115,220,0.78)',
+        backgroundColor: 'rgba(255, 255, 255, 0.55)',
+        borderColor: 'rgba(255,255,255,0.8)',
         borderWidth: 1
       }]
     },
     options: {
       legend: {
         display: true,
-        position: 'bottom'
+        position: 'bottom',
+        labels: {fontColor: '#555'}
       },
       scales: {
-        yAxes: [{ticks: {beginAtZero:true}}]
+        yAxes: [{ticks: {beginAtZero:true, fontColor: '#555'}, gridLines: {color: '#777'}}],
+        xAxes: [{ticks: {fontColor: '#555'}, gridLines: {color: '#777'}}]
       }
     }
   }

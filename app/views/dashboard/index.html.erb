@@ -3,11 +3,11 @@
     <h1 class="title"><%= icon("tachometer-alt") %> Dashboard</h1>
     <div style="margin-bottom: 1.5rem">
       <% if current_log %>
-        <%= link_to icon("pencil-alt", "Finish Current Log"), edit_log_path(current_log), class: "button is-success" %>
+        <%= link_to icon("pencil-alt", "Finish Current Log"), edit_log_path(current_log), class: "button is-warning" %>
       <% else %>
-        <%= link_to icon("plus-circle", "Start New Log"), logs_path, method: :post, class: "button is-link" %>
+        <%= link_to icon("plus-circle", "Start New Log"), logs_path, method: :post, class: "button is-primary" %>
       <% end %>
-      <%= button_tag icon("file-export", "Export Hours (CSV)"), class: "button is-link", id: "export-modal-trigger" %>
+      <%= button_tag icon("file-export", "Export Hours (CSV)"), class: "button is-primary", id: "export-modal-trigger" %>
 
       <div class="modal" id="export-modal">
         <div class="modal-background"></div>
@@ -40,7 +40,7 @@
 
                 <div class="field">
                   <div class="control">
-                    <%= button_tag icon("file-export", "Export Hours From Dates"), class: "button is-link", type: :submit %>
+                    <%= button_tag icon("file-export", "Export Hours From Dates"), class: "button is-primary", type: :submit %>
                   </div>
                 </div>
               </div>
