@@ -40,8 +40,8 @@ class LogsController < ApplicationController
     end
 
     def update_log(log)
-      return false unless log.update_attributes(log_params)
+      return false unless log.update(log_params)
       return true unless params[:commit] == "Finish Log"
-      log.update_attributes(active: true)
+      log.update(active: true)
     end
 end

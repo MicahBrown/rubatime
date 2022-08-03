@@ -3,7 +3,7 @@ class InvoiceJob < ApplicationJob
 
   def perform(invoice)
     return if invoice.enqueued?
-    invoice.update_attributes!(status: :enqueued)
+    invoice.update!(status: :enqueued)
     invoice.process!
   end
 end

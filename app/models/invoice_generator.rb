@@ -12,7 +12,7 @@ class InvoiceGenerator
     add_content
     tmp_file = render_tmp_file
     @invoice.pdf.attach(io: tmp_file, filename: filename)
-    @invoice.update_attributes!(status: :completed)
+    @invoice.update!(status: :completed)
   end
 
   private

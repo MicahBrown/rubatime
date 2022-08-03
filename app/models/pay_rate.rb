@@ -25,7 +25,7 @@ class PayRate < ApplicationRecord
   def update_current_status
     if current? && (saved_change_to_id? || saved_change_to_current?)
       pr = self.class.latest.where(current: true).where(effective_end_date: nil).where.not(id: self.id).first
-      pr.update_attributes!(effective_end_date: self.effective_start_date - 1.day, current: false) if pr
+      pr.update!(effective_end_date: self.effective_start_date - 1.day, current: false) if pr
     end
   end
 
