@@ -1,0 +1,21 @@
+<h1 class="title">Clients</h1>
+
+<%= link_to icon("plus-circle", "New Client"), new_client_path, class: "button is-primary" %>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th class="has-text-centered" colspan="2">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @clients.each do |client| %>
+      <tr style="<%= 'opacity: 0.5' if client.archived? %>">
+        <td><%= client.name %></td>
+        <td><%= link_to "Edit", edit_client_path(client) %></td>
+        <td><%= link_to "#{client.archived? ? 'Una' : 'A'}rchive", client_path(client, client: {archived: !client.archived?}), method: :patch %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

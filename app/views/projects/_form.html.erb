@@ -22,6 +22,13 @@
     </div>
   </div>
 
+  <div class="field">
+    <%= f.label :client_id %>
+    <div class="control">
+      <%= f.select :client_id, options_from_collection_for_select(Client.alphabetized, :id, :name, project.client_id), {include_blank: "Please Select"}, class: "input" %>
+    </div>
+  </div>
+
   <div>
     <%= f.submit class: "button is-primary" %>
   </div>

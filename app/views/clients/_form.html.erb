@@ -1,0 +1,21 @@
+<nav class="breadcrumb" aria-label="breadcrumbs">
+  <ul>
+    <li><%= link_to "Clients", clients_path %></li>
+    <li class="is-active"><a href="#" aria-current="page"><%= params[:action].titleize %> Client</a></li>
+  </ul>
+</nav>
+
+<h1 class="title"><%= params[:action].titleize %> Client</h1>
+
+<%= form_for client do |f| %>
+  <div class="field">
+    <%= f.label :name %>
+    <div class="control">
+      <%= f.text_field :name, class: "input" %>
+    </div>
+  </div>
+
+  <div>
+    <%= f.submit class: "button is-primary" %>
+  </div>
+<% end %>

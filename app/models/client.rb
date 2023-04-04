@@ -1,9 +1,7 @@
-class Project < ApplicationRecord
-  belongs_to :client
+class Client < ApplicationRecord
+  validates :name, presence: true, uniqueness: {case_sensitive: false}
 
-  validates :name, presence: true
-
-  scope :alphabetized, -> { order("projects.name ASC") }
+  scope :alphabetized, -> { order("clients.name ASC") }
   scope :unarchived, -> { where(archived_at: nil) }
 
   def archived=(status)
