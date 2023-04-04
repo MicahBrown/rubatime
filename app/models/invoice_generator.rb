@@ -205,6 +205,7 @@ class InvoiceGenerator
       start_at = @invoice.start_date.in_time_zone(TIMEZONE)
       end_at = @invoice.end_date.in_time_zone(TIMEZONE).end_of_day
       logs = Log.in_datetime_range(start_at, end_at)
+      logs = logs.joins(:project).where(projects: {client_id: Client.first.id}) if Client.exists? # limit to Envisage hardcoded for now
 
       elapsed_hours = logs.map do |log|
         s = log.start_at.in_time_zone(TIMEZONE)
