@@ -34,14 +34,14 @@
                 <div class="field">
                   <label class="label">Client</label>
                   <div class="select">
-                    <%= select_tag :client_id, options_from_collection_for_select(Client.alphabetized, :id, :name, Client.first&.id), include_blank: "All" %>
+                    <%= select_tag :client_id, options_from_collection_for_select(Client.alphabetized.unarchived, :id, :name, Client.first&.id), include_blank: "All" %>
                   </div>
                 </div>
 
                 <div class="field">
                   <label class="label">Project</label>
                   <div class="select">
-                    <%= select_tag :project_id, options_from_collection_for_select(Project.alphabetized, :id, :name), include_blank: "All" %>
+                    <%= select_tag :project_id, options_from_collection_for_select(Project.alphabetized.unarchived, :id, :name), include_blank: "All" %>
                   </div>
                 </div>
 
