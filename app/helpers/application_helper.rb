@@ -11,7 +11,8 @@ module ApplicationHelper
 
   def input_date(datetime)
     return unless datetime.present?
-    datetime.in_time_zone(TIMEZONE).to_date.to_s
+    datetime = datetime.in_time_zone(TIMEZONE)
+    datetime.to_date.to_s
   end
 
   def input_time(datetime)
