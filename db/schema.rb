@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_04_203031) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_08_201247) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
   enable_extension "plpgsql"
@@ -102,6 +102,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_04_203031) do
     t.datetime "archived_at", precision: nil
     t.bigint "client_id"
     t.index ["name"], name: "index_projects_on_name", unique: true
+  end
+
+  create_table "saved_filters", force: :cascade do |t|
+    t.string "controller", null: false
+    t.string "action", null: false
+    t.text "filters"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
