@@ -3,7 +3,7 @@ class Log < ApplicationRecord
 
   scope :active, -> { where(active: true) }
   scope :in_datetime_range, -> (sdatetime, edatetime) { where("(logs.start_at <= ?) AND (logs.end_at >= ?)", edatetime, sdatetime) }
-  scope :in_datetime_range_or_pending, -> (sdatetime, edatetime) { where("((logs.start_at <= ?) AND (logs.end_at >= ?)) OR (logs.end_at IS NULL AND logs.start_at <= ?)", edatetime, sdatetime, edatetime) }
+  scope :in_datetime_range_or_pending, -> (sdatetime, edatetime) { where("((logs.start_at <= ?) AND (logs.end_at >= ?)) OR (active IS FALSE)", edatetime, sdatetime).order("logs.active ASC, logs.start_at DESC, logs.end_at DESC") }
 
   validates :start_at, presence: true
   validates :end_at, presence: {if: :active?}
