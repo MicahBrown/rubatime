@@ -107,7 +107,7 @@
           <div class="control">
             <%= button_tag icon("search", "Search Logs"), class: "button is-primary is-fullwidth", type: :submit %>
             <% if @filter.present? && @filter.filters.present? %>
-              <%= link_to "Clear Filters", saved_filter_path(@filter), method: :delete, class: "has-text-danger" %>
+              <%= link_to icon("times", "Clear Filters"), saved_filter_path(@filter), method: :delete, class: "has-text-warning is-size-7 has-text-weight-bold" %>
             <% end %>
           </div>
         </div>
