@@ -129,7 +129,7 @@
     </tr>
   </thead>
   <tbody>
-    <% Log.where(active: false).order("logs.start_at DESC").each do |inactive_log| %>
+    <% Log.where(active: false).ordered.each do |inactive_log| %>
       <%= render "logs/log", log: inactive_log %>
     <% end %>
     <% @logs.each do |log| %>
