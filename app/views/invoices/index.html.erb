@@ -42,7 +42,7 @@
         <td><%= formatted_date(invoice.start_date) %></td>
         <td><%= formatted_date(invoice.end_date) %></td>
         <td><%= invoice.status %></td>
-        <td><%= link_to(invoice.pdf.filename, url_for(invoice.pdf)) if invoice.pdf.attached? %></td>
+        <td><%= link_to(invoice.pdf.filename, url_for(invoice.pdf), target: :_blank) if invoice.pdf.attached? %></td>
       </tr>
     <% end %>
   </tbody>
