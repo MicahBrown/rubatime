@@ -65,17 +65,17 @@
 </div>
 
 <div class="columns">
-  <div class="column is-three-fifths">
+  <div class="column is-one-half">
     <div class="box">
-      <span class="title"><%= pluralize(number_with_precision(Log.current_pay_period_elapsed_seconds / 60.0 / 60, strip_insignificant_zeros: true, precision: 2), "Hour") %> This Pay Period</span>
-      <small><%= Log.current_pay_period_dates.min.strftime("%b %e, %Y") %> - <%= Log.current_pay_period_dates.max.strftime("%b %e, %Y") %></small>
+      <span class="title"><%= pluralize(number_with_precision(@logs.map(&:elapsed_seconds).inject(:+) / 60.0 / 60, strip_insignificant_zeros: true, precision: 2), "Hour") %> This Pay Period</span>
+      <small><%= @start_date.strftime("%b %e, %Y") %> - <%= @end_date.strftime("%b %e, %Y") %></small>
     </div>
   </div>
 
   <div class="column">
     <div class="box">
-      <span class="title"><%= estimated_tax %></span>
-      Estimated <%= Date.today.year %> Tax
+      <span class="title"><%= pluralize(number_with_precision(Log.current_pay_period_elapsed_seconds / 60.0 / 60, strip_insignificant_zeros: true, precision: 2), "Hour") %> This Pay Period</span>
+      <small><%= Log.current_pay_period_dates.min.strftime("%b %e, %Y") %> - <%= Log.current_pay_period_dates.max.strftime("%b %e, %Y") %></small>
     </div>
   </div>
 </div>
@@ -83,7 +83,7 @@
 <div class="block">
   <%= form_tag dashboard_path, method: :get do %>
     <div class="columns">
-      <div class="column is-three-quarters">
+      <div class="column is-one-half">
         <label class="label">Date Range</label>
         <div class="field has-addons">
           <div class="control is-expanded has-icons-left">
@@ -97,6 +97,17 @@
             <span class="icon is-left">
               <i class="fas fa-calendar fa-sm"></i>
             </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="column is-one-quarter">
+        <%= label_tag :filtered_project, "Project", class: "label" %>
+        <div class="field">
+          <div class="control is-expanded">
+            <div class="select is-medium">
+              <%= select_tag :filtered_project, options_from_collection_for_select(Project.unarchived, :id, :name, params[:filtered_project]), include_blank: "All" %>
+            </div>
           </div>
         </div>
       </div>
