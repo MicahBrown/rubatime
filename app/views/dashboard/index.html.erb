@@ -65,16 +65,21 @@
 </div>
 
 <div class="columns">
-  <div class="column is-one-half">
+  <div class="column is-narrow">
     <div class="box">
-      <span class="title"><%= pluralize(number_with_precision(@all_logs.map(&:elapsed_seconds).inject(:+) / 60.0 / 60, strip_insignificant_zeros: true, precision: 2), "Hour") %> This Pay Period</span>
-      <small><%= @start_date.strftime("%b %e, %Y") %> - <%= @end_date.strftime("%b %e, %Y") %></small>
+      <span class="title is-4"><%= pluralize(number_with_precision(@all_logs.map(&:elapsed_seconds).inject(:+) / 60.0 / 60, strip_insignificant_zeros: true, precision: 2), "Hour") %> <span class="has-text-warning">Filtered</span></span>
+    </div>
+  </div>
+
+  <div class="column is-narrow">
+    <div class="box">
+      <span class="title is-4"><%= pluralize(number_with_precision(Log.where(active: true).in_datetime_range(Date.today.in_time_zone(TIMEZONE).beginning_of_day, Date.today.in_time_zone(TIMEZONE).end_of_day).map(&:elapsed_seconds).inject(:+) / 60.0 / 60, strip_insignificant_zeros: true, precision: 2), "Hour") %> <span class="has-text-success">Today</span></span>
     </div>
   </div>
 
   <div class="column">
     <div class="box">
-      <span class="title"><%= pluralize(number_with_precision(Log.current_pay_period_elapsed_seconds / 60.0 / 60, strip_insignificant_zeros: true, precision: 2), "Hour") %> This Pay Period</span>
+      <span class="title is-4"><%= pluralize(number_with_precision(Log.current_pay_period_elapsed_seconds / 60.0 / 60, strip_insignificant_zeros: true, precision: 2), "Hour") %> <span class="has-text-info">This Pay Period</span></span>
       <small><%= Log.current_pay_period_dates.min.strftime("%b %e, %Y") %> - <%= Log.current_pay_period_dates.max.strftime("%b %e, %Y") %></small>
     </div>
   </div>
