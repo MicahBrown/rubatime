@@ -67,7 +67,7 @@
 <div class="columns">
   <div class="column is-one-half">
     <div class="box">
-      <span class="title"><%= pluralize(number_with_precision(@logs.map(&:elapsed_seconds).inject(:+) / 60.0 / 60, strip_insignificant_zeros: true, precision: 2), "Hour") %> This Pay Period</span>
+      <span class="title"><%= pluralize(number_with_precision(@all_logs.map(&:elapsed_seconds).inject(:+) / 60.0 / 60, strip_insignificant_zeros: true, precision: 2), "Hour") %> This Pay Period</span>
       <small><%= @start_date.strftime("%b %e, %Y") %> - <%= @end_date.strftime("%b %e, %Y") %></small>
     </div>
   </div>
