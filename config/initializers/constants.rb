@@ -1,4 +1,4 @@
-TIMEZONE = "Central Time (US & Canada)".freeze
+TIMEZONE = "Mountain Time (US & Canada)".freeze
 DEFAULT_PROJECTS = [
   "AIS Educators Website",
   "Calendar System",
