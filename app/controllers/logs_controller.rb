@@ -1,6 +1,6 @@
 class LogsController < ApplicationController
   def create
-    @log = Log.new(start_at: Time.now)
+    @log = Log.new(start_at: Time.now + 1.hour)
 
     if @log.save
       redirect_to edit_log_path(@log), notice: "Successfully started new log"
