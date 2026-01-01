@@ -67,7 +67,19 @@
 <div class="columns">
   <div class="column is-narrow">
     <div class="box">
-      <span class="title is-4"><%= pluralize(number_with_precision((@all_logs.map(&:elapsed_seconds).inject(:+) || 0) / 60.0 / 60, strip_insignificant_zeros: true, precision: 2), "Hour") %> <span class="has-text-warning">Filtered</span></span>
+      <%
+        start_at = @start_date.in_time_zone(TIMEZONE)
+        end_at = @end_date.in_time_zone(TIMEZONE).end_of_day
+
+        elapsed_hours = @all_logs.map do |log|
+          s = log.start_at.in_time_zone(TIMEZONE)
+          s = start_at if start_at > s
+          e = log.end_at.in_time_zone(TIMEZONE)
+          e = end_at if end_at < e
+          ((e - s) / 60 / 60).round(2)
+        end.inject(:+).round(2)
+      %>
+      <span class="title is-4"><%= pluralize(number_with_precision(elapsed_hours, strip_insignificant_zeros: true, precision: 2), "Hour") %> <span class="has-text-warning">Filtered</span></span>
     </div>
   </div>
 
