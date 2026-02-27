@@ -77,7 +77,9 @@
           e = log.end_at.in_time_zone(TIMEZONE)
           e = end_at if end_at < e
           ((e - s) / 60 / 60).round(2)
-        end.inject(:+).round(2)
+        end.inject(:+)
+        elapsed_hours ||= 0
+        elapsed_hours = elapsed_hours.round(2)
       %>
       <span class="title is-4"><%= pluralize(number_with_precision(elapsed_hours, strip_insignificant_zeros: true, precision: 2), "Hour") %> <span class="has-text-warning">Filtered</span></span>
     </div>
