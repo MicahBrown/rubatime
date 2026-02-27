@@ -147,6 +147,7 @@
 <table class="table" style="width: 100%;">
   <thead>
     <tr>
+      <th></th>
       <th style="text-align: center">Active</th>
       <th>Start</th>
       <th>End</th>
@@ -161,7 +162,7 @@
       <%= render "logs/log", log: inactive_log %>
     <% end %>
     <% @logs.each do |log| %>
-      <%= render "logs/log", log: log %>
+      <%= render "logs/log", log: log, filtered_logs: @logs %>
     <% end %>
   </tbody>
 </table>

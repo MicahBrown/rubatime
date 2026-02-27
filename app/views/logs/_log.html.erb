@@ -1,4 +1,21 @@
+<%# locals: (log:, filtered_logs: nil, group_key: log.start_at.in_time_zone(TIMEZONE).to_date) %>
 <tr style="<%= 'background: #ddd;' unless log.active? %>">
+  <% unless filtered_logs.nil? %>
+    <% group_logs = filtered_logs.select { |l| l.start_at.in_time_zone(TIMEZONE).to_date == group_key }.sort_by(&:start_at) %>
+    <% if log == group_logs.last %>
+      <td rowspan="<%= group_logs.size %>" class="has-text-centered" style="background: #363636; color: #fff;">
+        <%= number_with_precision(group_logs.map(&:elapsed_seconds).sum / 60.0 / 60, strip_insignificant_zeros: true, precision: 2) %>
+        <% if group_logs.combination(2).any? { |a, b| a.end_at.present? && b.end_at.present? && (a.start_at...a.end_at).overlap?(b.start_at...b.end_at) } %>
+          <strong class="has-text-danger">
+            <br><%= icon("exclamation-triangle") %>
+            <br>Overlapping<br>Logs
+          </strong>
+        <% end %>
+      </td>
+    <% end %>
+  <% else %>
+    <td></td>
+  <% end %>
   <td style="text-align: center;"><%= icon(log.active? ? 'check' : 'times', class: log.active? ? "has-text-success" : "has-text-danger") %></td>
   <td>
     <%= formatted_date(log.start_at) %>
